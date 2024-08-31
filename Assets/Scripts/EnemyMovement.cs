@@ -21,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.01f;
         speed = startingSpeed;
         textController = FindFirstObjectByType<TextController>();
         animator = GetComponent<Animator>();
@@ -48,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
             if (health < 1)
             {
                 textController.ScoreIncrease();
-                StartCoroutine(Damaged());
+                StartCoroutine(Death());
             }
             else
             {
