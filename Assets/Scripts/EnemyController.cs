@@ -18,16 +18,19 @@ public class EnemyController : MonoBehaviour
     private float waitTime;
     private bool spawnEnemy = true;
     private Vector3 spawnLocation;
+    public float time;
 
     // Start is called before the first frame update
     void Start()
     {
-        waitTime = 2.5f;
+        waitTime = 2f;
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        time = Time.timeScale;
         if (spawnEnemy)
         {
             StartCoroutine(EnemyCreation());
@@ -49,15 +52,24 @@ public class EnemyController : MonoBehaviour
                 rng = Random.Range(-3, 2);
                 spawnLocation = new Vector3(9.4f, rng, 0);
                 Instantiate(slime, spawnLocation, Quaternion.identity);
+                yield return new WaitForSeconds(.35f);
                 break;
             case 2:
                 rng = Random.Range(-3, 2);
                 spawnLocation = new Vector3(9.5f, rng, 0);
                 Instantiate(gastropod, spawnLocation, Quaternion.identity);
+                yield return new WaitForSeconds(1.05f);
                 break;
         }
         yield return new WaitForSeconds(waitTime);
-        waitTime = waitTime * .99f;
+        if (waitTime > 1.25f)
+        {
+            waitTime = waitTime * .99f;
+        }
+        else if (Time.timeScale < 2.5)
+        {
+            Time.timeScale *= 1.01f;          
+        }
         spawnEnemy = true;
     }
 }

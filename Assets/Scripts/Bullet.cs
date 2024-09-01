@@ -28,8 +28,8 @@ public class Bullet : MonoBehaviour
     {
         rb.AddForce(force * Time.deltaTime);
         rng = Random.Range(-5, 6);
-        vertical = new Vector3(0, rng * 25, 0);
-        rb.AddForce(vertical * Time.deltaTime);
+        //vertical = new Vector3(0, rng * 25, 0);
+        //rb.AddForce(vertical * Time.deltaTime);
         if (transform.position.x > 9)
         {
             Destroy(gameObject);

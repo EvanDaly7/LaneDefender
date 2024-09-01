@@ -44,6 +44,7 @@ public class TextController : MonoBehaviour
         livesText.text = "Lives: " + lives;
         if (lives < 1)
         {
+            print("Death");
             Destroy(tank);
         }
     }

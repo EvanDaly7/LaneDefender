@@ -21,7 +21,6 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1.01f;
         speed = startingSpeed;
         textController = FindFirstObjectByType<TextController>();
         animator = GetComponent<Animator>();
@@ -30,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(speed *Time.deltaTime, 0, 0);
         if (transform.position.x < -10)
         {
             textController.LifeLoss();
