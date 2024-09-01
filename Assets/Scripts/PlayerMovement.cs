@@ -7,8 +7,10 @@
 *****************************************************************************/
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -69,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(explosion, spawnLocation, Quaternion.identity);
         yield return new WaitForSeconds(.35f);
         shotAvailable = true;
-        
+    }
+
+    public void OnRestart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

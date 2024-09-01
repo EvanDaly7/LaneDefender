@@ -18,6 +18,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] GameObject explosion;
     private Vector3 spawnLocation;
     private Animator animator;
+    [SerializeField] AudioSource enemyDamaged;
+    [SerializeField] AudioSource enemyKilled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +32,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(speed *Time.deltaTime, 0, 0);
+        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         if (transform.position.x < -10)
         {
             textController.LifeLoss();
@@ -65,6 +68,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Damaged()
     {
+        enemyDamaged.Play();
         speed = 0;
         yield return new WaitForSeconds(.15f);
         speed = startingSpeed;
@@ -72,6 +76,7 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Death()
     {
+        enemyKilled.Play();
         speed = 0;
         animator.SetTrigger("damaged");
         yield return new WaitForSeconds(.15f);

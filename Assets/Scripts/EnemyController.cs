@@ -18,19 +18,21 @@ public class EnemyController : MonoBehaviour
     private float waitTime;
     private bool spawnEnemy = true;
     private Vector3 spawnLocation;
-    public float time;
+    [SerializeField] AudioSource audioClip;
+    private TextController textController;
 
     // Start is called before the first frame update
     void Start()
     {
         waitTime = 2f;
         Time.timeScale = 1.0f;
+        audioClip.pitch = Time.timeScale;
+        textController = FindAnyObjectByType<TextController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time = Time.timeScale;
         if (spawnEnemy)
         {
             StartCoroutine(EnemyCreation());
@@ -62,13 +64,17 @@ public class EnemyController : MonoBehaviour
                 break;
         }
         yield return new WaitForSeconds(waitTime);
-        if (waitTime > 1.25f)
+        if (textController.lives > 0)
         {
-            waitTime = waitTime * .99f;
-        }
-        else if (Time.timeScale < 2.5)
-        {
-            Time.timeScale *= 1.01f;          
+            if (waitTime > 1.25f)
+            {
+                waitTime = waitTime * .99f;
+            }
+            else if (Time.timeScale < 2.5)
+            {
+                Time.timeScale *= 1.01f;
+                audioClip.pitch = Time.timeScale;
+            }
         }
         spawnEnemy = true;
     }
