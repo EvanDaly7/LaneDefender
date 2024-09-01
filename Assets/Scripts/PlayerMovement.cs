@@ -1,13 +1,4 @@
-/*****************************************************************************
-// File Name : PlayerMovement.cs
-// Author : Evan J. Daly
-// Creation Date : August 23, 2024
-//
-// Brief Description : Movement of the Tank and Spawns Bullets
-*****************************************************************************/
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -41,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, -3.17f);
         }
+        //Checks when bullets can be shot. Shooting is true when the player has the spacebar down. ShotAvaiable is true
+        //when a bullet has been fired and enough time has passed to fire the next bullet.
         if (shooting && shotAvailable)
         {
             StartCoroutine(BulletFired());
@@ -52,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         pMovement = inputVector.Get<float>();
     }
 
-
+    //Checks if the shooting button is pressed or not.
     public void OnShoot()
     {
         shooting = true;
@@ -63,18 +56,14 @@ public class PlayerMovement : MonoBehaviour
         shooting = false;
     }
 
+    //Fires bullet and explosion at location of tank. Waits .35 seconds before next shot can be fired.
     IEnumerator BulletFired()
     {
         shotAvailable = false;
         Vector3 spawnLocation = new Vector3(transform.position.x + .5f, transform.position.y + .25f, -1);
-        Instantiate(bullet, spawnLocation, Quaternion.identity);
         Instantiate(explosion, spawnLocation, Quaternion.identity);
+        Instantiate(bullet, spawnLocation, Quaternion.identity);
         yield return new WaitForSeconds(.35f);
         shotAvailable = true;
-    }
-
-    public void OnRestart()
-    {
-        SceneManager.LoadScene(0);
     }
 }

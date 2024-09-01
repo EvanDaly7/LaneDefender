@@ -1,12 +1,4 @@
-/*****************************************************************************
-// File Name : Explosion.cs
-// Author : Evan J. Daly
-// Creation Date : August 25, 2024
-//
-// Brief Description : Spawning of the Explosion for the bullets.
-*****************************************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosion : MonoBehaviour
@@ -17,6 +9,7 @@ public class Explosion : MonoBehaviour
         StartCoroutine(ExplosionDestroyed());
     }
 
+    //Destroys explosion once .2 seconds have passed
     IEnumerator ExplosionDestroyed()
     {
         yield return new WaitForSeconds(.2f);
