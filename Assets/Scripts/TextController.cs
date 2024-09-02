@@ -63,4 +63,9 @@ public class TextController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
 }
